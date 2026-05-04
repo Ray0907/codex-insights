@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+*.sqlite
+*.sqlite3
+*.db
+*.jsonl
+codex-session-doctor.html
+report.html
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.gif

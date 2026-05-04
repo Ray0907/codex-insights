@@ -1,0 +1,4 @@
+interface:
+  display_name: "Codex Hints"
+  short_description: "Analyze recent Codex sessions and suggest workflow improvements."
+  default_prompt: "Analyze my Codex usage from the last 7 days and suggest improvements."
