@@ -45,6 +45,8 @@ python3 ~/.codex/skills/codex-insights/scripts/analyze_codex_usage.py --days 7 -
 
 See [example-report.html](example-report.html) for a sample of what the HTML output looks like (generated with mock data).
 
+![Example Report](preview.png)
+
 ## Privacy
 
 The analyzer reads:
@@ -64,6 +66,7 @@ SKILL.md
 agents/openai.yaml
 scripts/analyze_codex_usage.py
 example-report.html
+preview.png
 ```
 
 ## License

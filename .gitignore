@@ -8,6 +8,7 @@ __pycache__/
 codex-session-doctor.html
 report.html
 *.png
+!preview.png
 *.jpg
 *.jpeg
 *.webp
