@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Codex Insights</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f8fafc; color: #334155; line-height: 1.65; padding: 48px 24px; margin: 0; }
+    .container { max-width: 820px; margin: 0 auto; }
+    h1 { font-size: 34px; font-weight: 750; color: #0f172a; margin: 0 0 8px; letter-spacing: 0; }
+    h2 { font-size: 24px; color: #0f172a; margin: 44px 0 16px; letter-spacing: 0; }
+    h3 { font-size: 17px; color: #0f172a; margin: 26px 0 12px; }
+    .subtitle { color: #64748b; font-size: 15px; margin-bottom: 28px; }
+    .at-a-glance { background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 1px solid #f59e0b; border-radius: 12px; padding: 20px 24px; margin-bottom: 28px; }
+    .glance-section { margin: 0 0 14px; }
+    .glance-section:last-child { margin-bottom: 0; }
+    .glance-section strong { color: #78350f; }
+    .nav-toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0 32px; padding: 16px; background: white; border-radius: 8px; border: 1px solid #e2e8f0; }
+    .nav-toc a { color: #2563eb; text-decoration: none; font-size: 14px; padding: 6px 10px; border-radius: 6px; }
+    .nav-toc a:hover { background: #eff6ff; }
+    .stats-row { display: flex; gap: 24px; margin-bottom: 40px; padding: 20px 0; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; flex-wrap: wrap; }
+    .stat { text-align: center; min-width: 105px; }
+    .stat-value { font-size: 25px; font-weight: 750; color: #0f172a; }
+    .stat-label { font-size: 12px; color: #64748b; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .project-areas, .big-wins, .friction-categories, .features-section, .patterns-section, .official-section { display: grid; gap: 14px; }
+    .project-area, .chart-card { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; }
+    .area-header { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
+    .area-name { font-weight: 700; color: #0f172a; }
+    .area-count { color: #64748b; font-size: 14px; white-space: nowrap; }
+    .area-desc { color: #475569; }
+    .narrative p { margin: 0 0 16px; }
+    .key-insight { border-left: 4px solid #2563eb; background: #eff6ff; padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 18px 0; }
+    .charts-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 18px 0; }
+    .chart-title { font-size: 12px; color: #64748b; font-weight: 800; letter-spacing: .08em; margin-bottom: 12px; }
+    .bar-row { display: grid; grid-template-columns: minmax(0, 1fr) 120px 54px; gap: 10px; align-items: center; margin-bottom: 7px; }
+    .bar-label { color: #334155; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .bar-track { height: 8px; background: #e2e8f0; border-radius: 99px; overflow: hidden; }
+    .bar-fill { height: 100%; background: #3b82f6; border-radius: inherit; }
+    .bar-value { font-size: 13px; color: #475569; text-align: right; font-variant-numeric: tabular-nums; }
+    .big-win { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 16px; }
+    .codex-signal { background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 8px; padding: 16px; }
+    .big-win-title, .friction-category-title, .feature-title, .codex-signal-title { color: #0f172a; font-weight: 750; margin-bottom: 6px; }
+    .big-win-desc, .friction-category-desc, .feature-why, .codex-signal-desc { color: #475569; }
+    .friction-category { background: #fef2f2; border: 1px solid #fca5a5; border-radius: 8px; padding: 16px; }
+    .feature-card { background: #f0fdf4; border: 1px solid #86efac; border-radius: 8px; padding: 16px; }
+    .official-card { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 8px; padding: 16px; }
+    .official-meta { color: #9a3412; font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 6px; }
+    .official-title { color: #0f172a; font-weight: 750; margin-bottom: 8px; }
+    .official-match, .official-try { color: #475569; margin-top: 6px; }
+    .source-link { display: inline-block; margin-top: 10px; color: #2563eb; font-weight: 700; text-decoration: none; }
+    .source-link:hover { text-decoration: underline; }
+    .example-code-row { display: grid; grid-template-columns: 1fr auto; gap: 10px; margin-top: 12px; align-items: start; }
+    code.example-code { display: block; white-space: pre-wrap; background: #0f172a; color: #e2e8f0; border-radius: 6px; padding: 12px; font-size: 12px; line-height: 1.45; }
+    .copy-btn { border: 1px solid #cbd5e1; background: white; color: #2563eb; padding: 8px 10px; border-radius: 6px; cursor: pointer; font-weight: 700; }
+    .copy-btn:hover { background: #eff6ff; }
+    .section-intro { color: #64748b; margin-bottom: 16px; }
+    @media (max-width: 760px) { body { padding: 28px 14px; } .charts-row { grid-template-columns: 1fr; } .bar-row { grid-template-columns: 1fr 80px; } .bar-track { grid-column: 1 / -1; grid-row: 2; } .example-code-row { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h1>Codex Insights</h1>
+    <p class="subtitle">634 user messages across 142 active threads | 2026-04-04 to 2026-05-04 | aggregate-only local report</p>
+
+    <section class="at-a-glance">
+      <div class="glance-section"><strong>What's working:</strong> Codex was used for web / app development across 38 session(s). The dominant tool path was shell (412 calls), which means the workflow is grounded in local inspection rather than unverified guessing. Command failure rate is 5% across 847 completed shell commands. Dynamic tools were exposed 32 times, so the environment is giving Codex app-specific capabilities Claude-style reports usually do not surface.</div>
+      <div class="glance-section"><strong>What's hindering you:</strong> Activity spans 5 workspaces, increasing context switching and thread recall noise.</div>
+      <div class="glance-section"><strong>Quick wins to try:</strong> End exploration-heavy sessions with a saved plan, report, or skill update. Review the first failing npm command before retrying variants.</div>
+      <div class="glance-section"><strong>Ambitious workflows:</strong> Codex can turn these signals into an automated loop: detect drift, write a summary, spawn a fresh implementation thread, run verification, and add a reusable skill or repo instruction when the same friction repeats.</div>
+      <div class="glance-section"><strong>Insight method:</strong> Deterministic insight builder: SQLite thread metadata + session JSONL event counters + parsed shell command names. It maps official OpenAI Codex features from the docs/changelog to observed friction, and does not quote raw prompts or tool outputs by default.</div>
+    </section>
+
+    <nav class="nav-toc">
+      <a href="#section-work">What You Work On</a>
+      <a href="#section-codex-only">Codex-only Signals</a>
+      <a href="#section-official">Official Feature Matches</a>
+      <a href="#section-usage">How You Use Codex</a>
+      <a href="#section-wins">Impressive Things</a>
+      <a href="#section-friction">Where Things Go Wrong</a>
+      <a href="#section-features">Features to Try</a>
+      <a href="#section-patterns">New Usage Patterns</a>
+      <a href="#section-horizon">On the Horizon</a>
+    </nav>
+
+    <div class="stats-row">
+      <div class="stat"><div class="stat-value">142</div><div class="stat-label">THREADS</div></div>
+      <div class="stat"><div class="stat-value">2,840,000</div><div class="stat-label">TOKENS</div></div>
+      <div class="stat"><div class="stat-value">847</div><div class="stat-label">COMMANDS</div></div>
+      <div class="stat"><div class="stat-value">5%</div><div class="stat-label">FAIL RATE</div></div>
+    </div>
+
+    <h2 id="section-work">What You Work On</h2>
+    <div class="project-areas">
+        <div class="project-area">
+          <div class="area-header">
+            <div class="area-name">Web / App Development</div>
+            <div class="area-count">~38 sessions</div>
+          </div>
+          <div class="area-desc">frontend, UI, components</div>
+        </div>
+        
+
+        <div class="project-area">
+          <div class="area-header">
+            <div class="area-name">Backend / API</div>
+            <div class="area-count">~27 sessions</div>
+          </div>
+          <div class="area-desc">server, endpoints, database</div>
+        </div>
+        
+
+        <div class="project-area">
+          <div class="area-header">
+            <div class="area-name">DevOps / Infrastructure</div>
+            <div class="area-count">~19 sessions</div>
+          </div>
+          <div class="area-desc">CI/CD, Docker, deployment</div>
+        </div>
+        
+
+        <div class="project-area">
+          <div class="area-header">
+            <div class="area-name">Data / Scripts</div>
+            <div class="area-count">~11 sessions</div>
+          </div>
+          <div class="area-desc">pipelines, analysis, automation</div>
+        </div>
+        </div>
+    <div class="charts-row"><div class="chart-card"><div class="chart-title">WHAT YOU WANTED</div><div class="bar-row"><div class="bar-label">implement</div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><div class="bar-value">54</div></div><div class="bar-row"><div class="bar-label">debug</div><div class="bar-track"><div class="bar-fill" style="width:70%"></div></div><div class="bar-value">38</div></div><div class="bar-row"><div class="bar-label">refactor</div><div class="bar-track"><div class="bar-fill" style="width:50%"></div></div><div class="bar-value">27</div></div><div class="bar-row"><div class="bar-label">explain</div><div class="bar-track"><div class="bar-fill" style="width:28%"></div></div><div class="bar-value">15</div></div><div class="bar-row"><div class="bar-label">review</div><div class="bar-track"><div class="bar-fill" style="width:15%"></div></div><div class="bar-value">8</div></div></div><div class="chart-card"><div class="chart-title">TOP TOOLS USED</div><div class="bar-row"><div class="bar-label">shell</div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><div class="bar-value">412</div></div><div class="bar-row"><div class="bar-label">str_replace_editor</div><div class="bar-track"><div class="bar-fill" style="width:70%"></div></div><div class="bar-value">287</div></div><div class="bar-row"><div class="bar-label">read_file</div><div class="bar-track"><div class="bar-fill" style="width:49%"></div></div><div class="bar-value">201</div></div><div class="bar-row"><div class="bar-label">write_file</div><div class="bar-track"><div class="bar-fill" style="width:38%"></div></div><div class="bar-value">156</div></div><div class="bar-row"><div class="bar-label">glob</div><div class="bar-track"><div class="bar-fill" style="width:22%"></div></div><div class="bar-value">89</div></div><div class="bar-row"><div class="bar-label">grep</div><div class="bar-track"><div class="bar-fill" style="width:18%"></div></div><div class="bar-value">74</div></div></div></div>
+
+    <h2 id="section-codex-only">Codex-only Signals</h2>
+    <p class="section-intro">These are signals this local Codex data can expose more directly than the Claude report: model/reasoning budget, sandbox and approval mode, active surface, dynamic tool availability, and parsed command semantics.</p>
+    <div class="big-wins"><div class="codex-signal"><div class="codex-signal-title">Model and reasoning budget</div><div class="codex-signal-desc">Top reasoning effort is medium across 72 thread(s). Use this to decide where lower effort is enough.</div></div><div class="codex-signal"><div class="codex-signal-title">Sandbox and approval posture</div><div class="codex-signal-desc">Top approval mode is suggest (89 thread(s)); escalation requests in parsed sessions: 12.</div></div><div class="codex-signal"><div class="codex-signal-title">Surface and tool availability</div><div class="codex-signal-desc">Top source is cli (118 thread(s)); dynamic tools exposed across active threads: 32.</div></div><div class="codex-signal"><div class="codex-signal-title">Command semantics</div><div class="codex-signal-desc">Parsed command intent shows git as the top command type and npm as the top failed type.</div></div></div>
+    <div class="charts-row"><div class="chart-card"><div class="chart-title">CODEX SURFACES</div><div class="bar-row"><div class="bar-label">cli</div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><div class="bar-value">118</div></div><div class="bar-row"><div class="bar-label">api</div><div class="bar-track"><div class="bar-fill" style="width:20%"></div></div><div class="bar-value">24</div></div></div><div class="chart-card"><div class="chart-title">APPROVAL MODES</div><div class="bar-row"><div class="bar-label">suggest</div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><div class="bar-value">89</div></div><div class="bar-row"><div class="bar-label">auto-edit</div><div class="bar-track"><div class="bar-fill" style="width:60%"></div></div><div class="bar-value">53</div></div></div></div>
+    <div class="charts-row"><div class="chart-card"><div class="chart-title">REASONING EFFORT</div><div class="bar-row"><div class="bar-label">medium</div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><div class="bar-value">72</div></div><div class="bar-row"><div class="bar-label">high</div><div class="bar-track"><div class="bar-fill" style="width:57%"></div></div><div class="bar-value">41</div></div><div class="bar-row"><div class="bar-label">low</div><div class="bar-track"><div class="bar-fill" style="width:40%"></div></div><div class="bar-value">29</div></div></div><div class="chart-card"><div class="chart-title">DYNAMIC TOOLS EXPOSED</div><div class="bar-row"><div class="bar-label">custom_deploy</div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><div class="bar-value">18</div></div><div class="bar-row"><div class="bar-label">run_tests</div><div class="bar-track"><div class="bar-fill" style="width:78%"></div></div><div class="bar-value">14</div></div></div></div>
+    <div class="charts-row"><div class="chart-card"><div class="chart-title">COMMAND INTENT TYPES</div><div class="bar-row"><div class="bar-label">git</div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><div class="bar-value">203</div></div><div class="bar-row"><div class="bar-label">npm</div><div class="bar-track"><div class="bar-fill" style="width:66%"></div></div><div class="bar-value">134</div></div><div class="bar-row"><div class="bar-label">python</div><div class="bar-track"><div class="bar-fill" style="width:48%"></div></div><div class="bar-value">98</div></div><div class="bar-row"><div class="bar-label">docker</div><div class="bar-track"><div class="bar-fill" style="width:33%"></div></div><div class="bar-value">67</div></div><div class="bar-row"><div class="bar-label">curl</div><div class="bar-track"><div class="bar-fill" style="width:22%"></div></div><div class="bar-value">45</div></div><div class="bar-row"><div class="bar-label">grep</div><div class="bar-track"><div class="bar-fill" style="width:19%"></div></div><div class="bar-value">38</div></div><div class="bar-row"><div class="bar-label">find</div><div class="bar-track"><div class="bar-fill" style="width:14%"></div></div><div class="bar-value">29</div></div><div class="bar-row"><div class="bar-label">make</div><div class="bar-track"><div class="bar-fill" style="width:10%"></div></div><div class="bar-value">21</div></div></div><div class="chart-card"><div class="chart-title">FAILED COMMAND TYPES</div><div class="bar-row"><div class="bar-label">npm</div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><div class="bar-value">18</div></div><div class="bar-row"><div class="bar-label">docker</div><div class="bar-track"><div class="bar-fill" style="width:67%"></div></div><div class="bar-value">12</div></div><div class="bar-row"><div class="bar-label">python</div><div class="bar-track"><div class="bar-fill" style="width:44%"></div></div><div class="bar-value">8</div></div><div class="bar-row"><div class="bar-label">git</div><div class="bar-track"><div class="bar-fill" style="width:28%"></div></div><div class="bar-value">5</div></div></div></div>
+
+    <h2 id="section-official">Official Feature Matches</h2>
+    <p class="section-intro">These recommendations map this week's measured friction to current OpenAI Codex docs and changelog items.</p>
+    <div class="official-section">
+        <div class="official-card">
+          <div class="official-meta">Codex changelog, 2026-04-30</div>
+          <div class="official-title">Persisted /goal workflows</div>
+          <div class="official-match"><strong>Why it matters:</strong> Your largest thread reached 84,200 tokens, which means long-running goals need resumable checkpoints.</div>
+          <div class="official-try"><strong>Try next:</strong> Use /goal for multi-step work that spans research, planning, implementation, verification, and cleanup instead of keeping everything in one free-form thread.</div>
+          <a class="source-link" href="https://developers.openai.com/codex/changelog">Open official docs</a>
+        </div>
+        
+        <div class="official-card">
+          <div class="official-meta">Codex docs: Subagents</div>
+          <div class="official-title">Subagents</div>
+          <div class="official-match"><strong>Why it matters:</strong> 412 shell calls show noisy exploration pressure in the main thread.</div>
+          <div class="official-try"><strong>Try next:</strong> When there are 2+ independent read-heavy questions, explicitly ask Codex to spawn subagents and return only distilled findings.</div>
+          <a class="source-link" href="https://developers.openai.com/codex/concepts/subagents">Open official docs</a>
+        </div>
+        
+        <div class="official-card">
+          <div class="official-meta">Codex app docs: Automations</div>
+          <div class="official-title">Automations + Skills</div>
+          <div class="official-match"><strong>Why it matters:</strong> This report is a recurring diagnostic workflow, and repeated friction should not require a manual prompt every week.</div>
+          <div class="official-try"><strong>Try next:</strong> Schedule Codex Insights weekly, then ask it to propose one new skill or AGENTS.md rule from the top recurring friction.</div>
+          <a class="source-link" href="https://developers.openai.com/codex/app/automations">Open official docs</a>
+        </div>
+        
+        <div class="official-card">
+          <div class="official-meta">Codex docs: AGENTS.md</div>
+          <div class="official-title">AGENTS.md instruction layering</div>
+          <div class="official-match"><strong>Why it matters:</strong> Activity spans 5 workspaces; repeated repo rules are likely being restated across threads.</div>
+          <div class="official-try"><strong>Try next:</strong> Move stable preferences into global ~/.codex/AGENTS.md and keep repo-specific verification, safety, and style rules in each repository AGENTS.md.</div>
+          <a class="source-link" href="https://developers.openai.com/codex/guides/agents-md">Open official docs</a>
+        </div>
+        
+        <div class="official-card">
+          <div class="official-meta">Codex docs: Non-interactive mode</div>
+          <div class="official-title">codex exec JSONL and explicit sandbox flags</div>
+          <div class="official-match"><strong>Why it matters:</strong> Approval mode and sandbox state are visible, and this window had 12 escalation request(s).</div>
+          <div class="official-try"><strong>Try next:</strong> For repeatable reports or CI triage, run codex exec with explicit --sandbox and --json so command output becomes measurable instead of conversational.</div>
+          <a class="source-link" href="https://developers.openai.com/codex/noninteractive">Open official docs</a>
+        </div>
+        
+        <div class="official-card">
+          <div class="official-meta">Codex docs: SDK</div>
+          <div class="official-title">Codex SDK</div>
+          <div class="official-match"><strong>Why it matters:</strong> A Codex insights product eventually needs programmatic control, not only a local HTML artifact.</div>
+          <div class="official-try"><strong>Try next:</strong> Use the SDK when you want Codex Insights to open or resume threads, run analysis, and feed results into your own dashboard or workflow.</div>
+          <a class="source-link" href="https://developers.openai.com/codex/sdk">Open official docs</a>
+        </div>
+        </div>
+
+    <h2 id="section-usage">How You Use Codex</h2>
+    <div class="narrative">
+      <p>You use Codex in a <strong>rapid investigation and correction loop</strong>: ask a compact question, let the agent inspect, then steer when the approach drifts. The tool profile is dominated by shell inspection, which is useful for grounding but expensive when the thread stays open too long.</p>
+      <p>Your strongest pattern is turning repeated problems into reusable process. This session itself moved from an idea to a local skill, script, HTML report, browser verification, and a Claude-like insights format.</p>
+      <div class="key-insight"><strong>Key pattern:</strong> Codex is most useful for you when it produces a durable artifact at the end of exploration: a skill, report, plan, or verified patch.</div>
+    </div>
+    <div class="charts-row"><div class="chart-card"><div class="chart-title">WORKSPACES</div><div class="bar-row"><div class="bar-label">~/projects/my-app</div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><div class="bar-value">38</div></div><div class="bar-row"><div class="bar-label">~/projects/api-service</div><div class="bar-track"><div class="bar-fill" style="width:71%"></div></div><div class="bar-value">27</div></div><div class="bar-row"><div class="bar-label">~/projects/data-pipeline</div><div class="bar-track"><div class="bar-fill" style="width:50%"></div></div><div class="bar-value">19</div></div><div class="bar-row"><div class="bar-label">~/dotfiles</div><div class="bar-track"><div class="bar-fill" style="width:29%"></div></div><div class="bar-value">11</div></div><div class="bar-row"><div class="bar-label">~/projects/infra</div><div class="bar-track"><div class="bar-fill" style="width:21%"></div></div><div class="bar-value">8</div></div></div><div class="chart-card"><div class="chart-title">DAILY TOKEN LOAD</div><div class="bar-row"><div class="bar-label">04-05</div><div class="bar-track"><div class="bar-fill" style="width:15%"></div></div><div class="bar-value">26,556</div></div><div class="bar-row"><div class="bar-label">04-06</div><div class="bar-track"><div class="bar-fill" style="width:3%"></div></div><div class="bar-value">0</div></div><div class="bar-row"><div class="bar-label">04-07</div><div class="bar-track"><div class="bar-fill" style="width:3%"></div></div><div class="bar-value">0</div></div><div class="bar-row"><div class="bar-label">04-08</div><div class="bar-track"><div class="bar-fill" style="width:3%"></div></div><div class="bar-value">0</div></div><div class="bar-row"><div class="bar-label">04-09</div><div class="bar-track"><div class="bar-fill" style="width:91%"></div></div><div class="bar-value">162,964</div></div><div class="bar-row"><div class="bar-label">04-10</div><div class="bar-track"><div class="bar-fill" style="width:16%"></div></div><div class="bar-value">28,331</div></div><div class="bar-row"><div class="bar-label">04-11</div><div class="bar-track"><div class="bar-fill" style="width:3%"></div></div><div class="bar-value">0</div></div><div class="bar-row"><div class="bar-label">04-12</div><div class="bar-track"><div class="bar-fill" style="width:3%"></div></div><div class="bar-value">0</div></div><div class="bar-row"><div class="bar-label">04-13</div><div class="bar-track"><div class="bar-fill" style="width:94%"></div></div><div class="bar-value">167,127</div></div><div class="bar-row"><div class="bar-label">04-14</div><div class="bar-track"><div class="bar-fill" style="width:91%"></div></div><div class="bar-value">162,853</div></div><div class="bar-row"><div class="bar-label">04-15</div><div class="bar-track"><div class="bar-fill" style="width:3%"></div></div><div class="bar-value">0</div></div><div class="bar-row"><div class="bar-label">04-16</div><div class="bar-track"><div class="bar-fill" style="width:12%"></div></div><div class="bar-value">21,703</div></div><div class="bar-row"><div class="bar-label">04-17</div><div class="bar-track"><div class="bar-fill" style="width:61%"></div></div><div class="bar-value">109,194</div></div><div class="bar-row"><div class="bar-label">04-18</div><div class="bar-track"><div class="bar-fill" style="width:3%"></div></div><div class="bar-value">0</div></div><div class="bar-row"><div class="bar-label">04-19</div><div class="bar-track"><div class="bar-fill" style="width:61%"></div></div><div class="bar-value">108,236</div></div><div class="bar-row"><div class="bar-label">04-20</div><div class="bar-track"><div class="bar-fill" style="width:3%"></div></div><div class="bar-value">0</div></div><div class="bar-row"><div class="bar-label">04-21</div><div class="bar-track"><div class="bar-fill" style="width:3%"></div></div><div class="bar-value">0</div></div><div class="bar-row"><div class="bar-label">04-22</div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><div class="bar-value">178,263</div></div><div class="bar-row"><div class="bar-label">04-23</div><div class="bar-track"><div class="bar-fill" style="width:79%"></div></div><div class="bar-value">140,435</div></div><div class="bar-row"><div class="bar-label">04-24</div><div class="bar-track"><div class="bar-fill" style="width:67%"></div></div><div class="bar-value">119,230</div></div><div class="bar-row"><div class="bar-label">04-25</div><div class="bar-track"><div class="bar-fill" style="width:64%"></div></div><div class="bar-value">114,800</div></div><div class="bar-row"><div class="bar-label">04-26</div><div class="bar-track"><div class="bar-fill" style="width:18%"></div></div><div class="bar-value">32,012</div></div><div class="bar-row"><div class="bar-label">04-27</div><div class="bar-track"><div class="bar-fill" style="width:23%"></div></div><div class="bar-value">40,916</div></div><div class="bar-row"><div class="bar-label">04-28</div><div class="bar-track"><div class="bar-fill" style="width:67%"></div></div><div class="bar-value">119,647</div></div><div class="bar-row"><div class="bar-label">04-29</div><div class="bar-track"><div class="bar-fill" style="width:65%"></div></div><div class="bar-value">115,638</div></div><div class="bar-row"><div class="bar-label">04-30</div><div class="bar-track"><div class="bar-fill" style="width:42%"></div></div><div class="bar-value">74,921</div></div><div class="bar-row"><div class="bar-label">05-01</div><div class="bar-track"><div class="bar-fill" style="width:22%"></div></div><div class="bar-value">38,717</div></div><div class="bar-row"><div class="bar-label">05-02</div><div class="bar-track"><div class="bar-fill" style="width:47%"></div></div><div class="bar-value">84,175</div></div><div class="bar-row"><div class="bar-label">05-03</div><div class="bar-track"><div class="bar-fill" style="width:51%"></div></div><div class="bar-value">90,765</div></div><div class="bar-row"><div class="bar-label">05-04</div><div class="bar-track"><div class="bar-fill" style="width:19%"></div></div><div class="bar-value">34,663</div></div></div></div>
+
+    <h2 id="section-wins">Impressive Things You Did</h2>
+    <p class="section-intro">The report is inferred from local Codex metadata and event patterns, not raw prompt excerpts.</p>
+    <div class="big-wins"><div class="big-win"><div class="big-win-title">Local evidence loop</div><div class="big-win-desc">The workflow produced 847 command events, browser checks, screenshots, and validation instead of relying only on prose.</div></div><div class="big-win"><div class="big-win-title">Codex-native observability</div><div class="big-win-desc">The report uses source, approval mode, sandbox, dynamic tools, and parsed command types; those are Codex-specific signals, not just copied Claude report sections.</div></div><div class="big-win"><div class="big-win-title">Reusable workflow creation</div><div class="big-win-desc">A repeated question became a local skill with markdown, JSON, and HTML outputs plus privacy-preserving defaults.</div></div></div>
+
+    <h2 id="section-friction">Where Things Go Wrong</h2>
+    <p class="section-intro">These are the session smells most likely to waste time or context.</p>
+    <div class="friction-categories"><div class="friction-category"><div class="friction-category-title">Long-thread drift</div><div class="friction-category-desc">Largest thread: 84,200 tokens. Split before planning and implementation collapse into the same context.</div></div><div class="friction-category"><div class="friction-category-title">Exploration pressure</div><div class="friction-category-desc">Top tool: shell (412). Top command type: git (203). Turn repeated inspection into a checklist or script.</div></div><div class="friction-category"><div class="friction-category-title">Command failure hotspots</div><div class="friction-category-desc">Most common failed command type: npm (18). Treat repeated failures as an environment issue, not a retry target.</div></div></div>
+
+    <h2 id="section-features">Existing Codex Features to Try</h2>
+    <p class="section-intro">Copy these into Codex when you want the workflow to be explicit.</p>
+    <div class="features-section">
+        <div class="feature-card">
+          <div class="feature-title">Codex skills</div>
+          <div class="feature-why">Repeated workflows now show up as measurable friction. Promote them into skills when they recur.</div>
+          <div class="example-code-row">
+            <code class="example-code">Create a Codex skill for this repeated workflow. Include trigger description, exact commands, safety rules, validation steps, and one example invocation.</code>
+            <button class="copy-btn" data-copy="Create a Codex skill for this repeated workflow. Include trigger description, exact commands, safety rules, validation steps, and one example invocation.">Copy</button>
+          </div>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-title">Reasoning-effort budget</div>
+          <div class="feature-why">This window uses medium effort heavily. Reserve high effort for architecture, debugging, and review.</div>
+          <div class="example-code-row">
+            <code class="example-code">Before starting, choose reasoning effort based on task risk: low for formatting/lookup, medium for routine edits, high for architecture or debugging.</code>
+            <button class="copy-btn" data-copy="Before starting, choose reasoning effort based on task risk: low for formatting/lookup, medium for routine edits, high for architecture or debugging.">Copy</button>
+          </div>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-title">Approval-aware planning</div>
+          <div class="feature-why">Approval mode is visible in Codex thread metadata; plans should account for sandbox/network limits before commands fail.</div>
+          <div class="example-code-row">
+            <code class="example-code">Before running commands, summarize sandbox, network, and approval constraints, then choose commands that fit those constraints.</code>
+            <button class="copy-btn" data-copy="Before running commands, summarize sandbox, network, and approval constraints, then choose commands that fit those constraints.">Copy</button>
+          </div>
+        </div>
+        </div>
+
+    <h2 id="section-patterns">New Ways to Use Codex</h2>
+    <p class="section-intro">These mirror the Claude report's pasteable playbooks, adapted for Codex.</p>
+    <div class="patterns-section">
+        <div class="feature-card">
+          <div class="feature-title">Root-cause lock</div>
+          <div class="feature-why">Best for bugs and production failures where command retries start piling up.</div>
+          <div class="example-code-row">
+            <code class="example-code">Before editing any file, write: symptom, likely cause with evidence, minimal test/change. If evidence is missing, inspect first.</code>
+            <button class="copy-btn" data-copy="Before editing any file, write: symptom, likely cause with evidence, minimal test/change. If evidence is missing, inspect first.">Copy</button>
+          </div>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-title">Research-to-artifact</div>
+          <div class="feature-why">Best for product/OSS exploration threads that otherwise become long and hard to reuse.</div>
+          <div class="example-code-row">
+            <code class="example-code">End this research thread by writing a durable artifact: README pitch, docs/research note, or implementation plan with review gates.</code>
+            <button class="copy-btn" data-copy="End this research thread by writing a durable artifact: README pitch, docs/research note, or implementation plan with review gates.">Copy</button>
+          </div>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-title">Command-failure review</div>
+          <div class="feature-why">Failed command type data shows where retries concentrate, currently led by npm.</div>
+          <div class="example-code-row">
+            <code class="example-code">When a command fails twice, stop retrying. Explain the error class, likely environment cause, and one safer next command.</code>
+            <button class="copy-btn" data-copy="When a command fails twice, stop retrying. Explain the error class, likely environment cause, and one safer next command.">Copy</button>
+          </div>
+        </div>
+        </div>
+
+    <h2 id="section-horizon">On the Horizon</h2>
+    <p>Codex can evolve from answering within a thread to running a full verification loop: plan, delegate, implement, test, screenshot, collect evidence, and only then summarize. The strongest next product is not just `/insights`; it is `/insights` feeding directly into new skills, repo instructions, and automated review gates.</p>
+    
+        <div class="feature-card">
+          <div class="feature-title">Codex Insights as a recurring workflow</div>
+          <div class="feature-why">Run this report weekly, compare drift, and turn repeated friction into skills or AGENTS.md rules.</div>
+          <div class="example-code-row">
+            <code class="example-code">Run Codex Insights for the last 7 days, summarize the top 3 recurring frictions, and propose one new skill or repo instruction that would prevent them.</code>
+            <button class="copy-btn" data-copy="Run Codex Insights for the last 7 days, summarize the top 3 recurring frictions, and propose one new skill or repo instruction that would prevent them.">Copy</button>
+          </div>
+        </div>
+        
+  </main>
+  <script>
+    document.querySelectorAll('.copy-btn').forEach((button) => {
+      button.addEventListener('click', async () => {
+        await navigator.clipboard.writeText(button.dataset.copy || '');
+        button.textContent = 'Copied';
+        setTimeout(() => button.textContent = 'Copy', 1200);
+      });
+    });
+  </script>
+</body>
+</html>
+

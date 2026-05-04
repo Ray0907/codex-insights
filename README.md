@@ -43,6 +43,8 @@ HTML report:
 python3 ~/.codex/skills/codex-insights/scripts/analyze_codex_usage.py --days 7 --html --output /tmp/codex-insights.html
 ```
 
+See [example-report.html](example-report.html) for a sample of what the HTML output looks like (generated with mock data).
+
 ## Privacy
 
 The analyzer reads:
@@ -61,6 +63,7 @@ Thread titles can contain prompt text, so they are omitted by default. Use `--in
 SKILL.md
 agents/openai.yaml
 scripts/analyze_codex_usage.py
+example-report.html
 ```
 
 ## License
